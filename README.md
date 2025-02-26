@@ -1,6 +1,6 @@
 # Account Log Server
 
-로그 수집 서버
+api 기본 서버 보일러플레이트
 
 ## Features
 
