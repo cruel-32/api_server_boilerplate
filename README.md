@@ -1,4 +1,4 @@
-# Account Log Server
+# API Server
 
 api 기본 서버 보일러플레이트
 
