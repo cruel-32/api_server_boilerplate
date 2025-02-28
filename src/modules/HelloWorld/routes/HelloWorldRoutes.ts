@@ -11,12 +11,22 @@ const helloWorldController = new HelloWorldController(helloWorldService);
  * @swagger
  * /:
  *   get:
- *     summary: Retorna uma mensagem Hello World
+ *     summary: Hello World
  *     responses:
  *       200:
- *         description: Sucesso
+ *         description: haha
  */
+router.get("/world", (req, res) => helloWorldController.sendHelloWorld(req, res));
 
-router.get("/", (req, res) => helloWorldController.sendHelloWorld(req, res));
+/**
+ * @swagger
+ * /world:
+ *   post:
+ *     summary: Created Hello World
+ *     responses:
+ *       200:
+ *         description: hahaha
+ */
+router.post("/world", (req, res) => helloWorldController.postHelloWorld(req, res));
 
 export default router;

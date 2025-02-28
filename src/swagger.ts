@@ -3,7 +3,7 @@ import swaggerAutogen from 'swagger-autogen';
 const doc = {
   info: {
     title: 'API Documentation',
-    description: 'Documentação da API',
+    description: 'API 문서',
   },
   host: 'localhost:3000',
   schemes: ['http'],

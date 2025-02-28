@@ -1,9 +1,12 @@
-import { config } from 'dotenv';
 import { resolve } from 'path';
+import { config } from 'dotenv';
 import express from 'express';
+import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
-import routes from './routes';
-import swaggerDocument from './swagger-output.json';
+
+import { Logger, ErrorLogger } from '@/logger';
+import routes from '@/routes';
+import swaggerDocument from '@/swagger-output.json';
 
 // 설정파일 읽기
 const root: string = `${process.cwd()}`;
@@ -27,8 +30,11 @@ switch (process.env.NODE_ENV) {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(Logger);
 app.use(routes);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(ErrorLogger);
 
 app.listen(PORT, () => console.log(`Running server: http://localhost:${PORT}. Swagger: http://localhost:${PORT}/docs`));
