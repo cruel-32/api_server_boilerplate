@@ -4,7 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 
-import { Logger, ErrorLogger } from '@/logger';
+import { morganMiddleware, ErrorLogger } from '@/logger';
 import routes from '@/routes';
 import swaggerDocument from '@/swagger-output.json';
 
@@ -33,7 +33,7 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(Logger);
+app.use(morganMiddleware);
 app.use(routes);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(ErrorLogger);

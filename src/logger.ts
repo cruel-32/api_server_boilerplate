@@ -47,18 +47,31 @@ if (process.env.NODE_ENV !== 'production') {
   );
 }
 
-export const Logger = morgan((tokens, req, res) => {
-  const logMessage = `[${tokens.method(req, res)}] ${tokens.url(req, res)} | ${tokens.status(req, res)} | ${tokens["response-time"](req, res)}ms`;
+// morgan 상세 로그를 찍기 불편해서 사용 보류
+// export const morganMiddleware = morgan((tokens, req, res) => {
+//   console.log('tokens ::::: ', tokens)
+
+//   const logMessage = `[${tokens.method(req, res)}] ${tokens.url(req, res)} | ${tokens.status(req, res)} | ${tokens["response-time"](req, res)}ms`;
+//   const statusCode = res.statusCode;
+//   if (statusCode < 500) {
+// 		logger.info(logMessage);
+// 	}
+// 	return null;
+// })
+
+export const morganMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  next();
   const statusCode = res.statusCode;
   if (statusCode < 500) {
-		logger.info(logMessage);
-	}
-	return null;
-})
+    const reqBodyString = JSON.stringify(req.body);
+    const reqQueryString = JSON.stringify(req.query);
+    const message = `[${req.method}] ${req.path} | ${statusCode} | [BODY] ${reqBodyString} | [QUERY] ${reqQueryString}`;
+    logger.info(message);
+  }
+}
 
 export const ErrorLogger = (error: HttpException, req: Request, res: Response, next: NextFunction) => {
   const statusCode = error.status;
-  console.log('ErrorLogger ::::: ', statusCode);
 	const stackLines = error?.stack?.split("\n");
 	const truncatedStack = stackLines?.slice(0, 5)?.join("\n");
 	const reqBodyString = JSON.stringify(req.body);

@@ -17,6 +17,7 @@ export class HelloWorldController {
   postHelloWorld(req: Request, res: Response): void {
     const message: string = this.helloWorldService.create();
     if (req.body.error) {
+      res.status(500);
       throw new HttpException(500, '테스트용 에러 코드');
     } else {
       res.json({ message });
