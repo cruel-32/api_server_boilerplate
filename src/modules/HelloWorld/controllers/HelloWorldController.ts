@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IHelloWorld } from "../interfaces/IHelloWorld";
+import { IHelloWorld, createPostQueries } from "@/modules/HelloWorld/interfaces/HelloWorld";
 import { HttpException } from '@/modules/HttpException';
 
 export class HelloWorldController {
@@ -14,13 +14,15 @@ export class HelloWorldController {
     res.json({ message });
   }
 
-  postHelloWorld(req: Request, res: Response): void {
-    const message: string = this.helloWorldService.create();
+  async postHelloWorld(req: Request, res: Response) {
     if (req.body.error) {
-      res.status(500);
-      throw new HttpException(500, '테스트용 에러 코드');
+      throw new HttpException(500, '테스트용 에러 코드', res);
     } else {
-      res.json({ message });
+      const { num } = req.body;
+      const post = await this.helloWorldService.getPost(num);
+      
+      console.log('post :::::: ', post);
+
     }
   }
 }

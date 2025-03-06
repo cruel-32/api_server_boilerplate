@@ -1,11 +1,10 @@
-import { IHelloWorld } from "../interfaces/IHelloWorld";
+import { IHelloWorld } from "@/modules/HelloWorld/interfaces/HelloWorld";
 
 export class HelloWorldService implements IHelloWorld {
   execute(): string {
     return "Hello World";
   }
-  create(): string {
-    return 'Hello World Created';
+  getPost(num: number) {
+    return 'get post'
   }
-
 }

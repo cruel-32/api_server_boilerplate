@@ -5,6 +5,7 @@ import winstonDailyRotate from 'winston-daily-rotate-file';
 
 import { HttpException } from '@/modules/HttpException';
 import type { Request, Response, NextFunction } from 'express';
+import { METHODS } from 'http';
 
 type Level = 'error' | 'info';
 const logDirectory = path.join(__dirname, "../logs");
@@ -19,7 +20,8 @@ const getNewWinstonDailyRotate = (level: Level) => {
     datePattern: 'YYYY-MM-DD',
     dirname: path.join(logDirectory, level),
     filename: `%DATE%.${level}.log`,
-    maxFiles: '90d',
+    maxFiles: '1d',
+    maxSize: '1g',
     zippedArchive: true,
   })
 }

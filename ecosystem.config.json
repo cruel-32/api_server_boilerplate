@@ -8,7 +8,7 @@
     "logs"
   ],
   "exec_mode": "cluster",
-  "instances": "3",
+  "instances": "5",
   "env": {
     "NODE_ENV": "production"
   },
