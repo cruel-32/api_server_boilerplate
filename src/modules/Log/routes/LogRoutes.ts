@@ -1,4 +1,5 @@
 import { Router } from "express";
+import asyncHandler from 'express-async-handler';
 import { LogController } from "../controllers/LogController";
 import { LogService } from "../services/LogService";
 
@@ -16,6 +17,6 @@ const logController = new LogController(logsService);
  *       200:
  *         description: haha
  */
-router.post("/log", (req, res) => logController.sendToES(req, res));
+router.post("/log", asyncHandler((req, res) => logController.sendToES(req, res)));
 
 export default router;

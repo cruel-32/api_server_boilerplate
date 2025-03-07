@@ -1,4 +1,5 @@
 import { Router } from "express";
+import asyncHandler from 'express-async-handler';
 import { HelloWorldController } from "../controllers/HelloWorldController";
 import { HelloWorldService } from "../services/HelloWorldService";
 
@@ -16,7 +17,7 @@ const helloWorldController = new HelloWorldController(helloWorldService);
  *       200:
  *         description: haha
  */
-router.get("/world", (req, res) => helloWorldController.sendHelloWorld(req, res));
+router.get("/world", asyncHandler((req, res) => helloWorldController.sendHelloWorld(req, res)));
 
 /**
  * @swagger
@@ -27,6 +28,6 @@ router.get("/world", (req, res) => helloWorldController.sendHelloWorld(req, res)
  *       200:
  *         description: hahaha
  */
-router.post("/world", (req, res) => helloWorldController.postHelloWorld(req, res));
+router.post("/world", asyncHandler((req, res) => helloWorldController.postHelloWorld(req, res)));
 
 export default router;

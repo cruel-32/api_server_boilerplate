@@ -22,7 +22,7 @@ export class HelloWorldController {
       const post = await this.helloWorldService.getPost(num);
       
       console.log('post :::::: ', post);
-
+      res.json({ message: num });
     }
   }
 }
